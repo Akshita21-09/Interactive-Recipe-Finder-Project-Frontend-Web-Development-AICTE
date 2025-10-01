@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ratings & Suggestions - Interactive Recipe Finder</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* ===== General Styles ===== */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { 
+    font-family: 'Poppins', Arial, sans-serif; 
+    background: linear-gradient(135deg,#ffe0b2,#fff3e0); 
+    color: #333; 
+    line-height: 1.6; 
+    text-align: center;
+  }
+  h1, h2, h3, p { margin: 0.5em 0; }
+
+  /* ===== Header / Navigation ===== */
+  header {
+    background: linear-gradient(90deg, #ff7043, #ff8a65);
+    color: white;
+    padding: 25px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  header h1 { 
+    font-size: 3rem; 
+    font-weight: bold; 
+    margin-bottom: 15px; 
+  }
+  nav { text-align: center; margin: 15px 0; }
+  nav a {
+    display: inline-block;
+    margin: 0 12px;
+    padding: 15px 30px;
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    font-weight: bold;
+    font-size: 1.3rem;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: 0.3s;
+  }
+  nav a:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(45deg, #20c997, #28a745);
+  }
+
+  /* ===== Section Titles ===== */
+  section h2 {
+    font-size: 2.8rem;
+    margin-bottom: 30px;
+    color: #d84315;
+    font-weight: bold;
+  }
+
+  /* ===== Ratings Form ===== */
+  .ratings-form {
+    max-width: 700px;
+    margin: 0 auto 40px;
+    background: linear-gradient(135deg,#fff3e0,#ffe0b2);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+  .ratings-form label {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+  .ratings-form input[type="text"],
+  .ratings-form input[type="email"],
+  .ratings-form textarea,
+  .ratings-form select {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    border-radius: 15px;
+    border: 2px solid #28a745;
+    outline: none;
+  }
+  .ratings-form button {
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-radius: 50px;
+    border: none;
+    color: white;
+    background: linear-gradient(45deg, #ff7043, #ff8a65);
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .ratings-form button:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(45deg, #ff8a65, #ff7043);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  }
+
+  /* ===== Previous Ratings / Suggestions ===== */
+  .reviews-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+  }
+  .review-card {
+    flex: 0 0 300px;
+    background: linear-gradient(135deg,#fff3e0,#ffe0b2);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    transition: 0.3s;
+    text-align: center;
+  }
+  .review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+  }
+  .review-card h3 {
+    font-size: 1.5rem;
+    color: #d84315;
+    margin-bottom: 10px;
+  }
+  .review-card p {
+    font-size: 1.1rem;
+    color: #555;
+  }
+
+  /* ===== Footer ===== */
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    background: linear-gradient(90deg, #ff7043, #ff8a65);
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-radius: 10px 10px 0 0;
+  }
+
+  /* ===== Responsive ===== */
+  @media(max-width:900px) { .review-card{ flex:0 0 45%; } }
+  @media(max-width:600px){ 
+    .review-card{ flex:0 0 90%; } 
+    nav a{ margin:5px 8px; padding:10px 20px; font-size:1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Ratings & Suggestions</h1>
+  <nav>
+    <a href="index1.html">Home</a>
+    <a href="recipe.html">Find Recipes</a>
+    <a href="ratings.html">Ratings & Suggestions</a>
+    <a href="dashboard.html">Dashboard</a>
+  </nav>
+</header>
+
+<section>
+  <h2>Submit Your Feedback</h2>
+  <div class="ratings-form">
+    <label for="name">Name:</label>
+    <input type="text" id="name" placeholder="Enter your name">
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="Enter your email">
+
+    <label for="rating">Rating (1-5):</label>
+    <select id="rating">
+      <option value="">Select rating</option>
+      <option value="1">1 ⭐</option>
+      <option value="2">2 ⭐⭐</option>
+      <option value="3">3 ⭐⭐⭐</option>
+      <option value="4">4 ⭐⭐⭐⭐</option>
+      <option value="5">5 ⭐⭐⭐⭐⭐</option>
+    </select>
+
+    <label for="suggestion">Suggestion / Feedback:</label>
+    <textarea id="suggestion" rows="4" placeholder="Enter your feedback"></textarea>
+
+    <button id="submitBtn">Submit Feedback</button>
+  </div>
+</section>
+
+<section>
+  <h2>Previous Feedback</h2>
+  <div class="reviews-container" id="reviewsContainer">
+    <!-- Dynamically populated review cards will appear here -->
+    <div class="review-card">
+      <h3>Jane Doe</h3>
+      <p>⭐⭐⭐⭐ Amazing recipe suggestions! Made cooking so much easier.</p>
+      <p>Email: jane@example.com</p>
+    </div>
+    <div class="review-card">
+      <h3>John Smith</h3>
+      <p>⭐⭐⭐ Good variety, but would love more vegan options.</p>
+      <p>Email: john@example.com</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Interactive Recipe Finder</p>
+</footer>
+
+</body>
+</html>

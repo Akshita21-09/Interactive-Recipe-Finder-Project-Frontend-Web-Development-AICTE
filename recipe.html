@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Recipes - Interactive Recipe Finder</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== General Styles ===== */
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+      color: #333;
+      text-align: center;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    h1, h2, h3, p {
+      margin: 0.5em 0;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(90deg, #ff7043, #ff8a65);
+      color: white;
+      padding: 25px 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    header h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    nav a {
+      display: inline-block;
+      margin: 10px 15px;
+      padding: 15px 30px;
+      background: linear-gradient(45deg, #28a745, #20c997);
+      color: white;
+      font-weight: bold;
+      font-size: 1.3rem;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(45deg, #20c997, #28a745);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* Section Title */
+    section h2 {
+      font-size: 2.8rem;
+      margin-bottom: 30px;
+      color: #d84315;
+      font-weight: bold;
+    }
+
+    /* Ingredients Input */
+    #ingredients {
+      padding: 15px 20px;
+      width: 70%;
+      max-width: 500px;
+      font-size: 1.3rem;
+      border-radius: 30px;
+      border: 2px solid #28a745;
+      margin-bottom: 15px;
+      outline: none;
+    }
+
+    /* Diet buttons */
+    #dietButtons p {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    #dietButtons .diet-btn {
+      padding: 12px 22px;
+      margin: 5px;
+      border-radius: 25px;
+      border: 2px solid #28a745;
+      background: transparent;
+      font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    #dietButtons .diet-btn:hover,
+    #dietButtons .diet-btn.active {
+      background: #28a745;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    /* Find Button */
+    #findBtn {
+      padding: 15px 40px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      border-radius: 50px;
+      border: none;
+      color: white;
+      background: linear-gradient(45deg, #ff7043, #ff8a65);
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+    #findBtn:hover {
+      transform: translateY(-3px);
+      background: linear-gradient(45deg, #ff8a65, #ff7043);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    /* Recipe Cards */
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .recipe {
+      flex: 0 0 300px;
+      background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      transition: 0.3s;
+      text-align: center;
+    }
+    .recipe:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+    }
+    .recipe h3 {
+      font-size: 1.5rem;
+      color: #d84315;
+      margin-bottom: 10px;
+    }
+    .recipe img {
+      width: 100%;
+      border-radius: 15px;
+      margin-bottom: 10px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      background: linear-gradient(90deg, #ff7043, #ff8a65);
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      border-radius: 10px 10px 0 0;
+    }
+
+    /* Responsive */
+    @media(max-width:900px) { .recipe{ flex:0 0 45%; } }
+    @media(max-width:600px){ 
+      .recipe{ flex:0 0 90%; } 
+      #ingredients{ width: 90%; }
+      nav a{ margin:5px 8px; padding:10px 15px; font-size:1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🥘 Interactive Recipe Finder</h1>
+  <nav>
+    <a href="index1.html">Home</a>
+    <a href="recipe.html">Find Recipes</a>
+    <a href="ratings.html">Ratings & Suggestions</a>
+    <a href="dashboard.html">Dashboard</a>
+  </nav>
+</header>
+
+<section class="recipes">
+  <h2>Search Recipes</h2>
+  
+  <!-- Ingredients input -->
+  <div style="text-align:center; margin-bottom:10px;">
+    <input type="text" id="ingredients" placeholder="Enter ingredients (comma separated)" required>
+  </div>
+
+  <!-- Diet type selection buttons -->
+  <div id="dietButtons">
+    <p>Select Diet Type:</p>
+    <button type="button" class="diet-btn" data-diet="">Any</button>
+    <button type="button" class="diet-btn" data-diet="ketogenic">Ketogenic</button>
+    <button type="button" class="diet-btn" data-diet="lacto-vegetarian">Lacto-vegetarian</button>
+    <button type="button" class="diet-btn" data-diet="ovo-vegetarian">Ovo-vegetarian</button>
+    <button type="button" class="diet-btn" data-diet="pescetarian">Pescetarian</button>
+    <button type="button" class="diet-btn" data-diet="vegan">Vegan</button>
+    <button type="button" class="diet-btn" data-diet="vegetarian">Vegetarian</button>
+    <button type="button" class="diet-btn" data-diet="paleo">Paleo</button>
+    <button type="button" class="diet-btn" data-diet="keto">Keto</button>
+    <button type="button" class="diet-btn" data-diet="gluten-free">Gluten Free</button>
+  </div>
+
+  <!-- Hidden input to store selected diet type -->
+  <input type="hidden" id="dietType">
+
+  <!-- Find Recipes button -->
+  <div style="text-align:center; margin-top:10px;">
+    <button id="findBtn" class="gradient-animate">Find Recipes</button>
+  </div>
+
+  <!-- Recipe results -->
+  <div class="container" id="recipeResults"></div>
+</section>
+
+<script src="script.js"></script>
+<script>
+  // Diet button selection logic
+  const dietButtons = document.querySelectorAll('.diet-btn');
+  const dietInput = document.getElementById('dietType');
+
+  dietButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      dietButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      dietInput.value = btn.dataset.diet;
+    });
+  });
+</script>
+
+<footer>
+  <p>© 2025 Interactive Recipe Finder</p>
+</footer>
+
+</body>
+</html>

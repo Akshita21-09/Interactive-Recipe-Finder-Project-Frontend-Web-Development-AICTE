@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard - Interactive Recipe Finder</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* ===== General Styles ===== */
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background: linear-gradient(135deg,#ffe0b2,#fff3e0);
+  color: #333;
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background: linear-gradient(90deg,#ff7043,#ff8a65);
+  color: white;
+  padding: 25px 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+header h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+nav a {
+  display: inline-block;
+  margin: 0 12px;
+  padding: 15px 30px;
+  background: linear-gradient(45deg, #28a745, #20c997);
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: 0.3s;
+}
+nav a:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(45deg, #20c997, #28a745);
+}
+
+/* ===== Dashboard Section ===== */
+section h2 {
+  font-size: 2.8rem;
+  color: #d84315;
+  margin: 40px 0 20px;
+  font-weight: bold;
+}
+
+.login-btn {
+  padding: 15px 40px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(45deg,#ff7043,#ff8a65);
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  transition: 0.3s;
+}
+.login-btn:hover {
+  transform: translateY(-3px);
+  opacity: 0.9;
+}
+
+/* ===== Dashboard Cards ===== */
+.dashboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+  margin-top: 20px;
+}
+.card {
+  flex: 0 0 280px;
+  background: linear-gradient(135deg,#fff3e0,#ffe0b2);
+  border-radius: 25px;
+  padding: 30px 20px;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+  transition: 0.3s;
+  text-align: center;
+}
+.card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+.card h3 {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  color: #28a745;
+}
+.card p {
+  font-size: 1.3rem;
+  color: #555;
+}
+
+/* ===== Footer ===== */
+footer {
+  text-align: center;
+  margin-top: 40px;
+  padding: 25px;
+  background: linear-gradient(90deg,#ff7043,#ff8a65);
+  color: white;
+  font-weight: bold;
+  font-size: 1.3rem;
+  border-radius: 10px 10px 0 0;
+}
+
+/* ===== Responsive ===== */
+@media(max-width:900px) { .card{ flex:0 0 45%; } }
+@media(max-width:600px){ 
+  .card{ flex:0 0 90%; } 
+  nav a{ margin:5px 8px; padding:10px 20px; font-size:1.1rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🥘 Recipe Dashboard</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="recipe.html">Find Recipes</a>
+    <a href="ratings.html">Ratings & Suggestions</a>
+    <a href="dashboard.html">Dashboard</a>
+  </nav>
+</header>
+
+<section>
+  <h2>Your Dashboard</h2>
+  <div>
+    <button class="login-btn" id="loginBtn">Login</button>
+  </div>
+
+  <div class="dashboard-container">
+    <div class="card">
+      <h3 id="recipeCount">0</h3>
+      <p>Recipes Found</p>
+    </div>
+    <div class="card">
+      <h3 id="favCount">0</h3>
+      <p>Favorites Saved</p>
+    </div>
+    <div class="card">
+      <h3>Diet Info</h3>
+      <p>Vegetarian, Vegan, Keto, Gluten-Free, Paleo</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Interactive Recipe Finder</p>
+</footer>
+
+<script>
+// ===== Dashboard JS =====
+let loggedIn = false;
+const loginBtn = document.getElementById('loginBtn');
+loginBtn.addEventListener('click', ()=>{
+  loggedIn = !loggedIn;
+  loginBtn.innerText = loggedIn ? "Logout" : "Login";
+  alert(loggedIn ? "You are logged in!" : "You are logged out!");
+});
+
+// ===== Recipe & Favorite Counts =====
+function updateDashboardCounts(){
+  const favs = JSON.parse(localStorage.getItem('rf_favs')||"{}");
+  const favCount = Object.keys(favs).length;
+  document.getElementById('favCount').innerText = favCount;
+
+  // For demo, recipe count equals favorites + 10 (replace with actual search count)
+  const recipeCount = favCount + 10;
+  document.getElementById('recipeCount').innerText = recipeCount;
+}
+
+// Update counts on load
+updateDashboardCounts();
+</script>
+
+</body>
+</html>
